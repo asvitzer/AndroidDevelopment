@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    @Override
+    private CrystalBall mCrystalBall = new CrystalBall();
+	
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -22,7 +24,8 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				String answer = "Yes Alvin!";
+				String answer = mCrystalBall.retrieveAnswer();
+				//update label with random answer 
 				answerLabel.setText(answer);
 				
 			}

@@ -4,20 +4,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ball01" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" 
-        android:textSize="32sp"/>
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="32sp" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:text="Push me to the limit" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Push me for my knowledge. . ."
+        android:textColor="#3f0f7f"
+        android:textSize="@dimen/Size"
+        android:textStyle="bold|italic"
+        android:typeface="serif" />
 
 </RelativeLayout>
