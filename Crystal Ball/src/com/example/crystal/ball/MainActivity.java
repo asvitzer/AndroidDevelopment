@@ -1,10 +1,12 @@
 package com.example.crystal.ball;
 
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -28,6 +30,8 @@ public class MainActivity extends Activity {
 				//update label with random answer 
 				answerLabel.setText(answer);
 				
+				animateBall();
+				
 			}
 		});
     }
@@ -39,4 +43,17 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    private void animateBall(){
+    	
+    	ImageView crystalImage = (ImageView) findViewById(R.id.imageView1);
+    	crystalImage.setImageResource(R.drawable.ball_animation);
+    	AnimationDrawable ballAnimation = (AnimationDrawable) crystalImage.getDrawable();
+    	
+    	if (ballAnimation.isRunning()){
+    		ballAnimation.stop();
+    	}
+    	
+    	ballAnimation.start();
+    	
+    }
 }
