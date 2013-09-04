@@ -6,11 +6,11 @@ public class CrystalBall {
 
 	String[] mAnswerArray = {
 			"It is certain",
-			"Maybe next year when you get to Hogwarts",
+			"Maybe next year",
 			"Better not ask that yet",
-			"Yes. Well no--Err Yes until tomorrow",
+			"Yes. Well no--Err ask again tomorrow",
 			"Nope. Give it up!",
-			"Cheers! Lets drink instead of ask questions",
+			"Lets drink instead of ask",
 			"Well this is awkward",
 			"Unavailable resources to answer question"};
 	

@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,26 +13,29 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
     private CrystalBall mCrystalBall = new CrystalBall();
+    private TextView mAnswerLabel;
+    private Button mGetAnswerButton;
+    private ImageView mCrystalImage;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        //Declare view variables 
-        final TextView answerLabel = (TextView) findViewById(R.id.textView1);
-        Button getAnswerButton = (Button) findViewById(R.id.button1);
+        mAnswerLabel = (TextView) findViewById(R.id.textView1);
         
-        getAnswerButton.setOnClickListener(new View.OnClickListener() {
+        mGetAnswerButton = (Button) findViewById(R.id.button1);
+        mGetAnswerButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				
 				String answer = mCrystalBall.retrieveAnswer();
 				//update label with random answer 
-				answerLabel.setText(answer);
+				mAnswerLabel.setText(answer);
 				
 				animateBall();
-				
+				animateText();
 			}
 		});
     }
@@ -45,9 +49,9 @@ public class MainActivity extends Activity {
     
     private void animateBall(){
     	
-    	ImageView crystalImage = (ImageView) findViewById(R.id.imageView1);
-    	crystalImage.setImageResource(R.drawable.ball_animation);
-    	AnimationDrawable ballAnimation = (AnimationDrawable) crystalImage.getDrawable();
+    	mCrystalImage = (ImageView) findViewById(R.id.imageView1);
+    	mCrystalImage.setImageResource(R.drawable.ball_animation);
+    	AnimationDrawable ballAnimation = (AnimationDrawable) mCrystalImage.getDrawable();
     	
     	if (ballAnimation.isRunning()){
     		ballAnimation.stop();
@@ -55,5 +59,15 @@ public class MainActivity extends Activity {
     	
     	ballAnimation.start();
     	
+    }
+    
+    private void animateText(){
+    	
+    	AlphaAnimation textFade = new AlphaAnimation(0, 1);
+    	textFade.setDuration(1500);
+    	textFade.setFillAfter(true);
+    	
+    	mAnswerLabel.setAnimation(textFade);
+    
     }
 }
