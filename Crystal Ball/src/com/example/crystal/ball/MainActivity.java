@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 	private TextView mAnswerLabel;
 	private Button mGetAnswerButton;
 	private ImageView mCrystalImage;
-	
+
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
 	private ShakeDetector mShakeDetector;
@@ -38,15 +38,15 @@ public class MainActivity extends Activity {
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		
+
 		mShakeDetector = new ShakeDetector(new OnShakeListener() {
-			
+
 			@Override
 			public void onShake() {
 				handleNewAnswer();
 			}
 		});
-		
+
 		mGetAnswerButton = (Button) findViewById(R.id.button1);
 		mGetAnswerButton.setOnClickListener(new View.OnClickListener() {
 
@@ -55,6 +55,20 @@ public class MainActivity extends Activity {
 				handleNewAnswer();
 			}
 		});
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		mSensorManager.registerListener(mShakeDetector, mAccelerometer
+				, SensorManager.SENSOR_DELAY_UI);
+
+	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		mSensorManager.unregisterListener(mShakeDetector);
 	}
 
 	@Override
