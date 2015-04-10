@@ -13,6 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.crystal.ball.ShakeDetector.OnShakeListener;
 
@@ -55,6 +56,8 @@ public class MainActivity extends Activity {
 				handleNewAnswer();
 			}
 		});
+	
+		Toast.makeText(this, "Activity created", Toast.LENGTH_LONG).show();	
 	}
 	
 	@Override
