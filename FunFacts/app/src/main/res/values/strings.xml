@@ -4,6 +4,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="greet">Did you know?</string>
     <string name="action_settings">Settings</string>
-    <string name="funfact1">China has secret military-style boot camps for Internet addicts.</string>
+    <string name="funfact">China has secret military-style boot camps for Internet addicts.</string>
     <string name="FFButton">Feed me more knowledge!</string>
 </resources>
