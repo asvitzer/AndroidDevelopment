@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class FunFactsActivity extends Activity {
@@ -19,6 +20,8 @@ public class FunFactsActivity extends Activity {
         setContentView(R.layout.activity_fun_facts);
 
         final TextView factLabel = (TextView) findViewById(R.id.funFact);
+
+        FactBook facts = new FactBook();
 
         Button showFactButton = (Button) findViewById(R.id.FFButton);
         showFactButton.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +46,9 @@ public class FunFactsActivity extends Activity {
         factList.add("A baby octopus is about the size of a flea when it is born.");
         factList.add("Facebook, Skype and Twitter are all banned in China.");
 
-        int factSpot = (int) (Math.random() * factList.size());
+        Random randomGenerator = new Random();
+
+        int factSpot = randomGenerator.nextInt(factList.size());
 
         return factList.get(factSpot);
 
