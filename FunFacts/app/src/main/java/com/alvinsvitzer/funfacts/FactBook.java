@@ -8,7 +8,6 @@ import java.util.Random;
  */
 public class FactBook {
 
-    private String Fact;
     private ArrayList<String> factList;
 
     FactBook(){
