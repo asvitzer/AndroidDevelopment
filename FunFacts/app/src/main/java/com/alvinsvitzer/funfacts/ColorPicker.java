@@ -1,5 +1,9 @@
 package com.alvinsvitzer.funfacts;
 
+import android.graphics.Color;
+
+import java.util.Random;
+
 /**
  * Created by asvitzer on 4/17/2015.
  */
@@ -21,5 +25,15 @@ public class ColorPicker {
             "#b7c0c7"  // light gray
     };
 
+    public int getRandomColor(){
+
+        Random randomGenerator = new Random();
+        int colorSpot = randomGenerator.nextInt(mColors.length);
+
+        int colorNumber = Color.parseColor(mColors[colorSpot]);
+
+        return colorNumber;
+
+    }
     
 }
