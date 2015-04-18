@@ -1,21 +1,17 @@
 package com.alvinsvitzer.funfacts;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 
 public class FunFactsActivity extends Activity {
 
+    public static final String TAG = FunFactsActivity.class.getSimpleName();
     private FactBook factb = new FactBook();
     private ColorPicker colorWheel = new ColorPicker();
 
@@ -40,8 +36,12 @@ public class FunFactsActivity extends Activity {
                 rl.setBackgroundColor(colorNum);
                 showFactButton.setTextColor(colorNum);
 
+                Log.d(TAG, "I've been clicked!!!");
+
             }
         });
+
+
     }
 
 }
