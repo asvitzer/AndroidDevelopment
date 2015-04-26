@@ -2,4 +2,13 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
     </style>
+
+    <style name="AppTheme.Button">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">#ff3a8aec</item>
+    </style>
+
+    <style name="AppTheme.RelativeLayout">
+        <item name="android:background">@android:color/white</item>
+    </style>
 </resources>
