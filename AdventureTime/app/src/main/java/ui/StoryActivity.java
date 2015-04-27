@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class StoryActivity extends Activity {
     private Button mChoice1;
     private Button mChoice2;
     private String mName;
+    private Page mPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +37,55 @@ public class StoryActivity extends Activity {
         mChoice1 = (Button) findViewById(R.id.buttonChoice1);
         mChoice2 = (Button) findViewById(R.id.buttonChoice2);
 
-        loadPage();
+        loadPage(0);
 
     }
 
 
-    private void loadPage(){
+    private void loadPage(int choice){
 
-        Page page = mStory.getPage(0);
+        mPage = mStory.getPage(choice);
 
-        Drawable drawable = getResources().getDrawable(page.getImageId());
+        Drawable drawable = getResources().getDrawable(mPage.getImageId());
         mImageView.setImageDrawable(drawable);
 
         //Dynamically replace placeholder strings in text with user's name
-        String pageText = page.getText();
+        String pageText = mPage.getText();
         pageText = String.format(pageText, mName);
 
         mTextView.setText(pageText);
-        mChoice1.setText(page.getChoice1().getText());
-        mChoice2.setText(page.getChoice2().getText());
+
+        if (mPage.getIsFinal() == false) {
+            mChoice1.setText(mPage.getChoice1().getText());
+            mChoice2.setText(mPage.getChoice2().getText());
+
+            mChoice1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nextPage = mPage.getChoice1().getNextPage();
+                    loadPage(nextPage);
+                }
+            });
+
+            mChoice2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nextPage = mPage.getChoice2().getNextPage();
+                    loadPage(nextPage);
+                }
+            });
+        }
+        else{
+            mChoice1.setVisibility(View.INVISIBLE);
+            mChoice2.setText("Play again. . .");
+            mChoice2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
     }
 
 
