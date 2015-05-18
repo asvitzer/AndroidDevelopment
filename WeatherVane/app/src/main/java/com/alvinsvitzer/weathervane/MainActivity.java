@@ -47,8 +47,11 @@ public class MainActivity extends ActionBarActivity {
             public void onResponse(Response response) throws IOException {
 
                 try {
-                    if (response.isSuccessful())
-                        Log.v(MainActivity.TAG, response.body().string());
+                    Log.v(MainActivity.TAG, response.body().string());
+                    if (response.isSuccessful()){}
+                    else{
+                        alertUserError();
+                    }
                 } catch (IOException e) {
                     Log.e(MainActivity.TAG, "Exception caught: ", e);
                 }
@@ -58,6 +61,8 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    private void alertUserError() {
+    }
 
 
 }
