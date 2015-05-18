@@ -1,5 +1,7 @@
 package com.alvinsvitzer.weathervane;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -26,42 +28,52 @@ public class MainActivity extends ActionBarActivity {
         String apiKey = "75c4a96fc561a451037ca40c447e768b";
         Double lattitude = 37.8267;
         Double longitude = -122.423;
-        String forecastURL = "https://api.forecast.io/forecast/"+apiKey+"/"
+        String forecastURL = "https://api.forecast.io/forecast/" + apiKey + "/"
                 + lattitude + "," + longitude;
 
+        if (isNetworkAvailable()) {
+            //https://api.forecast.io/forecast/75c4a96fc561a451037ca40c447e768b/37.8267,-122.423
+            OkHttpClient client = new OkHttpClient();
 
-        OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(forecastURL)
+                    .build();
 
-        Request request = new Request.Builder()
-                .url(forecastURL)
-                .build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
 
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-
-                try {
-                    Log.v(MainActivity.TAG, response.body().string());
-                    if (response.isSuccessful()){}
-                    else{
-                        alertUserError();
-                    }
-                } catch (IOException e) {
-                    Log.e(MainActivity.TAG, "Exception caught: ", e);
                 }
 
-            }
-        });
+                @Override
+                public void onResponse(Response response) throws IOException {
 
+                    try {
+                        Log.v(MainActivity.TAG, response.body().string());
+                        if (response.isSuccessful()) {
+                        } else {
+                            alertUserError();
+                        }
+                    } catch (IOException e) {
+                        Log.e(MainActivity.TAG, "Exception caught: ", e);
+                    }
+
+                }
+            });
+
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return false;
     }
 
     private void alertUserError() {
+
+        AlertDialogFragment dialog = new AlertDialogFragment();
+        dialog.show(getFragmentManager(), "error_dialog");
     }
 
 
