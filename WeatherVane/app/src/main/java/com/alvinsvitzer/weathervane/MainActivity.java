@@ -2,9 +2,11 @@ package com.alvinsvitzer.weathervane;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -63,11 +65,22 @@ public class MainActivity extends ActionBarActivity {
             });
 
         }
+        else {
+            Toast.makeText(this, "Network is currently unavailable.",Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return false;
+        NetworkInfo netInf = manager.getActiveNetworkInfo();
+
+        boolean deviceConnected = false;
+
+        if (netInf != null && netInf.isConnected()){
+            deviceConnected = true;
+        }
+
+        return deviceConnected;
     }
 
     private void alertUserError() {
