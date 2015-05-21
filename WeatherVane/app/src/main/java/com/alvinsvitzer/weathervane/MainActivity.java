@@ -14,12 +14,16 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private CurrentConditions mCurrentConditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +56,17 @@ public class MainActivity extends ActionBarActivity {
                 public void onResponse(Response response) throws IOException {
 
                     try {
-                        Log.v(MainActivity.TAG, response.body().string());
+                        String jsonResponse = response.body().string();
+                        Log.v(MainActivity.TAG, jsonResponse);
+
                         if (response.isSuccessful()) {
+                            mCurrentConditions = getCurrentConditions(jsonResponse);
                         } else {
                             alertUserError();
                         }
                     } catch (IOException e) {
+                        Log.e(MainActivity.TAG, "Exception caught: ", e);
+                    } catch (JSONException e) {
                         Log.e(MainActivity.TAG, "Exception caught: ", e);
                     }
 
@@ -68,6 +77,23 @@ public class MainActivity extends ActionBarActivity {
         else {
             Toast.makeText(this, "Network is currently unavailable.",Toast.LENGTH_LONG).show();
         }
+    }
+
+    private CurrentConditions getCurrentConditions(String jsonResponse) throws JSONException {
+
+        JSONObject weatherCond = new JSONObject(jsonResponse);
+        JSONObject currently = weatherCond.getJSONObject("currently");
+
+        CurrentConditions retrievedConditions = new CurrentConditions();
+
+        retrievedConditions.setHumidity(currently.getDouble("humidity"));
+        retrievedConditions.setPrecipChance(currently.getDouble("precipProbability"));
+        retrievedConditions.setTime(currently.getLong("time"));
+        retrievedConditions.setTemp(currently.getDouble("temperature"));
+        retrievedConditions.setIcon(currently.getString("icon"));
+        retrievedConditions.setSummary(currently.getString("summary"));
+
+        return retrievedConditions;
     }
 
     private boolean isNetworkAvailable() {
