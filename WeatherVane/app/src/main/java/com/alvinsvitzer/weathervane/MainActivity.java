@@ -87,6 +87,7 @@ public class MainActivity extends ActionBarActivity {
         CurrentConditions retrievedConditions = new CurrentConditions();
 
         retrievedConditions.setHumidity(currently.getDouble("humidity"));
+        retrievedConditions.setTimeZone(weatherCond.getString("timezone"));
         retrievedConditions.setPrecipChance(currently.getDouble("precipProbability"));
         retrievedConditions.setTime(currently.getLong("time"));
         retrievedConditions.setTemp(currently.getDouble("temperature"));
