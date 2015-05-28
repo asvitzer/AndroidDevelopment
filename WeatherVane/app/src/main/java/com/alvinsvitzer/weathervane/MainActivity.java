@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
@@ -24,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private CurrentConditions mCurrentConditions;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,9 @@ public class MainActivity extends ActionBarActivity {
 
                         if (response.isSuccessful()) {
                             mCurrentConditions = getCurrentConditions(jsonResponse);
+                            mTextView = (TextView) findViewById(R.id.tempLabel);
+                            mTextView.setText(String.valueOf(mCurrentConditions.getTemp()));
+
                         } else {
                             alertUserError();
                         }
@@ -114,6 +119,12 @@ public class MainActivity extends ActionBarActivity {
 
         AlertDialogFragment dialog = new AlertDialogFragment();
         dialog.show(getFragmentManager(), "error_dialog");
+    }
+
+    private void setConditions(){
+
+
+
     }
 
 
