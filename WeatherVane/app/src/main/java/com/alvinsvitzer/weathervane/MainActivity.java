@@ -1,11 +1,13 @@
 package com.alvinsvitzer.weathervane;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -27,11 +32,18 @@ public class MainActivity extends ActionBarActivity {
     private CurrentConditions mCurrentConditions;
     private TextView mTextView;
 
+    @InjectView(R.id.timeLabel) TextView mTimeValue;
+    @InjectView(R.id.tempLabel) TextView mTempValue;
+    @InjectView(R.id.humidityValue) TextView mHumidityValue;
+    @InjectView(R.id.precipValue) TextView mPrecipValue;
+    @InjectView(R.id.summaryLabel) TextView mSummaryValue;
+    @InjectView(R.id.iconImageView) ImageView mIconImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.inject(this);
 
         String apiKey = "75c4a96fc561a451037ca40c447e768b";
         Double lattitude = 37.8267;
@@ -63,8 +75,12 @@ public class MainActivity extends ActionBarActivity {
 
                         if (response.isSuccessful()) {
                             mCurrentConditions = getCurrentConditions(jsonResponse);
-                            mTextView = (TextView) findViewById(R.id.tempLabel);
-                            mTextView.setText(String.valueOf(mCurrentConditions.getTemp()));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateDisplay();
+                                }
+                            });
 
                         } else {
                             alertUserError();
@@ -82,6 +98,18 @@ public class MainActivity extends ActionBarActivity {
         else {
             Toast.makeText(this, "Network is currently unavailable.",Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void updateDisplay() {
+
+        mTempValue.setText(String.valueOf(Math.round(mCurrentConditions.getTemp())));
+        mTimeValue.setText("At " + mCurrentConditions.getFormattedTime() + ", it will be");
+        mHumidityValue.setText(String.valueOf(mCurrentConditions.getHumidity()));
+        mPrecipValue.setText(String.valueOf(mCurrentConditions.getPrecipChance()*100) + '%');
+        mSummaryValue.setText(mCurrentConditions.getSummary());
+
+        Drawable drawable = getResources().getDrawable(mCurrentConditions.getIconId());
+        mIconImageView.setImageDrawable(drawable);
     }
 
     private CurrentConditions getCurrentConditions(String jsonResponse) throws JSONException {
