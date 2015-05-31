@@ -7,7 +7,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +32,15 @@ public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     private CurrentConditions mCurrentConditions;
-    private TextView mTextView;
 
-    @InjectView(R.id.timeLabel) TextView mTimeValue;
-    @InjectView(R.id.tempLabel) TextView mTempValue;
+    @InjectView(R.id.timeValue) TextView mTimeValue;
+    @InjectView(R.id.tempValue) TextView mTempValue;
     @InjectView(R.id.humidityValue) TextView mHumidityValue;
     @InjectView(R.id.precipValue) TextView mPrecipValue;
-    @InjectView(R.id.summaryLabel) TextView mSummaryValue;
+    @InjectView(R.id.summaryValue) TextView mSummaryValue;
     @InjectView(R.id.iconImageView) ImageView mIconImageView;
+    @InjectView(R.id.refreshImageView) ImageView mRefreshImageView;
+    @InjectView(R.id.progressBar) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,35 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+        mProgressBar.setVisibility(View.INVISIBLE);
+
+        final Double lattitude = 37.8267;
+        final Double longitude = -122.423;
+
+        getForecast(lattitude, longitude);
+
+        mRefreshImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getForecast(lattitude, longitude);
+            }
+        });
+    }
+
+    private void getForecast(double lattitude, double longitude) {
         String apiKey = "75c4a96fc561a451037ca40c447e768b";
-        Double lattitude = 37.8267;
-        Double longitude = -122.423;
         String forecastURL = "https://api.forecast.io/forecast/" + apiKey + "/"
                 + lattitude + "," + longitude;
 
         if (isNetworkAvailable()) {
+
+            runOnUiThread(new Runnable() {
+                              @Override
+                              public void run() {
+                                  toggleRefresh();
+                              }
+                          });
+
             //https://api.forecast.io/forecast/75c4a96fc561a451037ca40c447e768b/37.8267,-122.423
             OkHttpClient client = new OkHttpClient();
 
@@ -64,6 +89,14 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onFailure(Request request, IOException e) {
 
+                    alertUserError();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toggleRefresh();
+                        }
+                    });
                 }
 
                 @Override
@@ -78,6 +111,8 @@ public class MainActivity extends ActionBarActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+
+                                    toggleRefresh();
                                     updateDisplay();
                                 }
                             });
@@ -96,8 +131,21 @@ public class MainActivity extends ActionBarActivity {
 
         }
         else {
-            Toast.makeText(this, "Network is currently unavailable.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Network is currently unavailable.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void toggleRefresh() {
+
+        if(mProgressBar.getVisibility() == View.INVISIBLE) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRefreshImageView.setVisibility(View.INVISIBLE);
+        }
+        else{
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRefreshImageView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void updateDisplay() {
@@ -147,12 +195,7 @@ public class MainActivity extends ActionBarActivity {
 
         AlertDialogFragment dialog = new AlertDialogFragment();
         dialog.show(getFragmentManager(), "error_dialog");
-    }
-
-    private void setConditions(){
-
-
-
+        toggleRefresh();
     }
 
 
