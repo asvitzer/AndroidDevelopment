@@ -1,4 +1,6 @@
-package com.alvinsvitzer.weathervane;
+package com.alvinsvitzer.weathervane.weather;
+
+import com.alvinsvitzer.weathervane.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

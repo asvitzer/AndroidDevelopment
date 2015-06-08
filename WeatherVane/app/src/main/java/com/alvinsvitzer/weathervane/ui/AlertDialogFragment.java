@@ -1,9 +1,11 @@
-package com.alvinsvitzer.weathervane;
+package com.alvinsvitzer.weathervane.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+
+import com.alvinsvitzer.weathervane.R;
 
 /**
  * Created by ALVIN on 5/17/15.

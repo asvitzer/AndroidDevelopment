@@ -1,4 +1,4 @@
-package com.alvinsvitzer.weathervane;
+package com.alvinsvitzer.weathervane.ui;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,12 +13,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alvinsvitzer.weathervane.R;
+import com.alvinsvitzer.weathervane.weather.CurrentConditions;
+import com.alvinsvitzer.weathervane.weather.DailyConditions;
+import com.alvinsvitzer.weathervane.weather.Forecast;
+import com.alvinsvitzer.weathervane.weather.HourlyConditions;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +37,7 @@ import butterknife.InjectView;
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private CurrentConditions mCurrentConditions;
+    private Forecast mForecast;
 
     @InjectView(R.id.timeValue) TextView mTimeValue;
     @InjectView(R.id.tempValue) TextView mTempValue;
@@ -107,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
                         Log.v(MainActivity.TAG, jsonResponse);
 
                         if (response.isSuccessful()) {
-                            mCurrentConditions = getCurrentConditions(jsonResponse);
+                            mForecast = parseForecastData(jsonResponse);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -150,14 +156,79 @@ public class MainActivity extends ActionBarActivity {
 
     private void updateDisplay() {
 
-        mTempValue.setText(String.valueOf(Math.round(mCurrentConditions.getTemp())));
-        mTimeValue.setText("At " + mCurrentConditions.getFormattedTime() + ", it will be");
-        mHumidityValue.setText(String.valueOf(mCurrentConditions.getHumidity()));
-        mPrecipValue.setText(String.valueOf(mCurrentConditions.getPrecipChance()*100) + '%');
-        mSummaryValue.setText(mCurrentConditions.getSummary());
+        mTempValue.setText(String.valueOf(Math.round(mForecast.getCurrentConditions().getTemp())));
+        mTimeValue.setText("At " + mForecast.getCurrentConditions().getFormattedTime() + ", it will be");
+        mHumidityValue.setText(String.valueOf(mForecast.getCurrentConditions().getHumidity()));
+        mPrecipValue.setText(String.valueOf(mForecast.getCurrentConditions().getPrecipChance()*100) + '%');
+        mSummaryValue.setText(mForecast.getCurrentConditions().getSummary());
 
-        Drawable drawable = getResources().getDrawable(mCurrentConditions.getIconId());
+        Drawable drawable = getResources().getDrawable(mForecast.getCurrentConditions().getIconId());
         mIconImageView.setImageDrawable(drawable);
+    }
+
+    private Forecast parseForecastData(String jsonResponse) throws JSONException{
+
+        Forecast forecast = new Forecast();
+        forecast.setCurrentConditions(getCurrentConditions(jsonResponse));
+        forecast.setHourlyConditions(getHourlyConditions(jsonResponse));
+        forecast.setDailyConditions(getDailyConditions(jsonResponse));
+
+        return forecast;
+    }
+
+    private DailyConditions[] getDailyConditions(String jsonResponse) throws JSONException {
+
+        JSONObject dailyCond = new JSONObject(jsonResponse);
+        String timezone = dailyCond.getString("timezone");
+        JSONObject daily = dailyCond.getJSONObject("daily");
+        JSONArray data = daily.getJSONArray("data");
+
+       DailyConditions[] dc = new DailyConditions[data.length()];
+
+        for (int x = 0; x < data.length(); x++){
+
+            JSONObject jsonDaily = data.getJSONObject(x);
+            DailyConditions dCond = new DailyConditions();
+
+            dCond.setTime(jsonDaily.getLong("time"));
+            dCond.setSummary(jsonDaily.getString("summary"));
+            dCond.setTemperatureMax(jsonDaily.getDouble("temperatureMax"));
+            dCond.setIcon(jsonDaily.getString("icon"));
+            dCond.setTimeZone(timezone);
+
+            dc[x] = dCond;
+
+        }
+
+        return dc;
+    }
+
+    private HourlyConditions[] getHourlyConditions(String jsonResponse) throws JSONException {
+
+        JSONObject hourlyCond = new JSONObject(jsonResponse);
+        String timezone = hourlyCond.getString("timezone");
+        JSONObject hourly = hourlyCond.getJSONObject("hourly");
+        JSONArray data = hourly.getJSONArray("data");
+
+
+       HourlyConditions[] hc = new HourlyConditions[data.length()];
+
+        for (int x = 0; x < data.length(); x++){
+
+            JSONObject jsonHour = data.getJSONObject(x);
+            HourlyConditions hCond = new HourlyConditions();
+
+            hCond.setSummary(jsonHour.getString("summary"));
+            hCond.setIcon(jsonHour.getString("icon"));
+            hCond.setTime(jsonHour.getLong("time"));
+            hCond.setTemperature(jsonHour.getDouble("temperature"));
+            hCond.setTimeZone(timezone);
+
+            hc[x] = hCond;
+
+        }
+
+        return hc;
     }
 
     private CurrentConditions getCurrentConditions(String jsonResponse) throws JSONException {
