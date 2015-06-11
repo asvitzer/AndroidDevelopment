@@ -6,4 +6,6 @@
     <string name="fragment_error">Sorry, an error has occurred. Please try again.</string>
     <string name="fragment_error_positive">Okay.</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_daily_forecast">DailyForecast</string>
+    <string name="no_data_daily_forecast">There is no data to display. . .</string>
 </resources>
