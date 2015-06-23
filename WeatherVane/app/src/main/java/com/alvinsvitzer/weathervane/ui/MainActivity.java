@@ -57,8 +57,8 @@ public class MainActivity extends ActionBarActivity {
 
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        final Double lattitude = 37.8267;
-        final Double longitude = -122.423;
+        final Double lattitude = 32.7150;
+        final Double longitude = 117.1625;
 
         getForecast(lattitude, longitude);
 
