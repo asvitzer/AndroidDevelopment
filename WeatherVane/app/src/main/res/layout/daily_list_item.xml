@@ -3,6 +3,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="89dp"
+                android:paddingRight="32dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
                 tools:background="@android:color/holo_blue_dark">
 
     <ImageView
@@ -18,9 +22,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/iconImageView"
-        android:layout_alignParentBottom="true"
+        android:src="@drawable/clear_day"
+        android:paddingLeft="5dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/circleImageView"
         android:layout_toEndOf="@+id/circleImageView"
-        android:src="@drawable/clear_day"/>
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dayNameLabel"
+        android:textColor="#ffffffff"
+        android:textSize="20sp"
+        tools:text="Wednesday"
+        android:paddingLeft="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iconImageView"
+        android:layout_toEndOf="@+id/iconImageView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatureLabel"
+        tools:text="100"
+        android:gravity="center"
+        android:text="@android:color/holo_blue_dark"
+        android:layout_centerVertical="true"
+        android:layout_alignTop="@id/circleImageView"
+        android:layout_alignBottom="@id/circleImageView"
+        android:layout_alignLeft="@id/circleImageView"
+        android:layout_alignRight="@id/circleImageView"/>
 
 </RelativeLayout>
