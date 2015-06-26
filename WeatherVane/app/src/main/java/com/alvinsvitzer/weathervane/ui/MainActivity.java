@@ -38,6 +38,7 @@ import butterknife.OnClick;
 public class MainActivity extends ActionBarActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String DAILY_FORECAST = "DAILY_FORECAST";
     private Forecast mForecast;
 
     @InjectView(R.id.timeValue) TextView mTimeValue;
@@ -273,6 +274,7 @@ public class MainActivity extends ActionBarActivity {
     @OnClick(R.id.dailyButton)
     public void startDailyActivity(View view){
         Intent intent = new Intent(this, DailyForecastActivity.class);
+        intent.putExtra(DAILY_FORECAST, mForecast.getDailyConditions());
         startActivity(intent);
     }
 
