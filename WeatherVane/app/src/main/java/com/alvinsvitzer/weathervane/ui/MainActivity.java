@@ -58,8 +58,8 @@ public class MainActivity extends ActionBarActivity {
 
         mProgressBar.setVisibility(View.INVISIBLE);
 
-        final Double lattitude = 32.7150;
-        final Double longitude = 117.1625;
+        final Double lattitude = 32.7153;
+        final Double longitude = -117.1564;
 
         getForecast(lattitude, longitude);
 
@@ -75,6 +75,9 @@ public class MainActivity extends ActionBarActivity {
         String apiKey = "75c4a96fc561a451037ca40c447e768b";
         String forecastURL = "https://api.forecast.io/forecast/" + apiKey + "/"
                 + lattitude + "," + longitude;
+
+
+
 
         if (isNetworkAvailable()) {
 
