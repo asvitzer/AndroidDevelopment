@@ -71,7 +71,6 @@ public class DayAdapter extends BaseAdapter {
     private static class ViewHolder {
 
         ImageView iconImageView; //public by default
-        ImageView circleImageView; //public by default
         TextView temperatureLabel;
         TextView dayNameLabel;
 
