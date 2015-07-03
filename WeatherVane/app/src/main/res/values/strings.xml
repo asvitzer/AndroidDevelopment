@@ -8,4 +8,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_daily_forecast">DailyForecast</string>
     <string name="no_data_daily_forecast">There is no data to display. . .</string>
+    <string name="title_activity_houry_forecast">HouryForecastActivity</string>
 </resources>
