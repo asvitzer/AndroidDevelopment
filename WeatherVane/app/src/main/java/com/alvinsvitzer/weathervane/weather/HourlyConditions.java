@@ -3,6 +3,10 @@ package com.alvinsvitzer.weathervane.weather;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * Created by asvitzer on 6/8/2015.
  */
@@ -41,8 +45,8 @@ public class HourlyConditions implements Parcelable {
         mSummary = summary;
     }
 
-    public double getTemperature() {
-        return mTemperature;
+    public int getTemperature() {
+        return (int) Math.round(mTemperature);
     }
 
     public void setTemperature(double temperature) {
@@ -51,6 +55,11 @@ public class HourlyConditions implements Parcelable {
 
     public String getIcon() {
         return mIcon;
+    }
+
+    public int getIconId(){
+
+        return  Forecast.getIconId(mIcon);
     }
 
     public void setIcon(String icon) {
@@ -63,6 +72,14 @@ public class HourlyConditions implements Parcelable {
 
     public void setTimeZone(String timeZone) {
         mTimeZone = timeZone;
+    }
+
+    public String getHour() {
+        SimpleDateFormat formatter = new SimpleDateFormat("h a");
+        formatter.setTimeZone(TimeZone.getTimeZone(mTimeZone));
+        Date dateTime = new Date(mTime * 1000);
+
+        return formatter.format(dateTime);
     }
 
     @Override //Not used
