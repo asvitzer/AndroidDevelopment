@@ -100,7 +100,6 @@ public class DailyConditions implements Parcelable {
 
     }
 
-
     public static final Creator<DailyConditions> CREATOR = new Creator<DailyConditions>() {
         @Override
         public DailyConditions createFromParcel(Parcel source) {
