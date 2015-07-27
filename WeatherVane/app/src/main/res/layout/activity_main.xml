@@ -124,12 +124,13 @@
         android:layout_height="wrap_content"
         android:text="--"
         android:id="@+id/summaryValue"
-        android:layout_below="@+id/linearLayout"
+        android:layout_above="@+id/layoutHourlyDaily"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:textSize="18dp"
         android:textColor="#ffffffff"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:paddingBottom="15dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -154,7 +155,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:weightSum="100">
+        android:weightSum="100"
+        android:id="@+id/layoutHourlyDaily">
 
         <Button
             android:layout_width="match_parent"
@@ -164,7 +166,8 @@
             android:layout_weight="50"
             android:textColor="@android:color/white"
             android:background="#40ffffff"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:paddingTop="5dp"/>
 
         <Button
             android:layout_width="match_parent"
@@ -174,7 +177,8 @@
             android:layout_weight="50"
             android:background="#40ffffff"
             android:textColor="#ffffffff"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>
