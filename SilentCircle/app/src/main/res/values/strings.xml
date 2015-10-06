@@ -17,4 +17,7 @@
     <string name="First_Name_Hint">First_Name</string>
     <string name="Last_Name_Hint">Last Name</string>
     <string name="Email_Hint">Email Address</string>
+    <string name="Username_Hint">Username</string>
+    <string name="signup_error_message">Please make sure you enter a username, password, and email address</string>
+    <string name="signup_error_title">Oops!</string>
 </resources>

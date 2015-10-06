@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 
 import java.util.Locale;
 
@@ -42,9 +43,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "GEOA0udADw7u779mWThMiRmLvxQAJNIHLcSvcF54", "2cVwjqvIsD8wR2XSktt44n6pfVsOgG3v0WaVS8tu");
 
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
 
         Intent loginIntent = new Intent(this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
