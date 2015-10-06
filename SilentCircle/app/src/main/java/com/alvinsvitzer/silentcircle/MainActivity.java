@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.Parse;
+
 import java.util.Locale;
 
 
@@ -39,6 +41,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "GEOA0udADw7u779mWThMiRmLvxQAJNIHLcSvcF54", "2cVwjqvIsD8wR2XSktt44n6pfVsOgG3v0WaVS8tu");
+
 
         Intent loginIntent = new Intent(this, LoginActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
