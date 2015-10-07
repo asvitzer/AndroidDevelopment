@@ -1,4 +1,4 @@
-package com.alvinsvitzer.silentcircle;
+package com.alvinsvitzer.silentcircle.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.alvinsvitzer.silentcircle.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -24,10 +25,13 @@ public class SignUpActivity extends ActionBarActivity {
     @InjectView(R.id.passwordField) EditText mPassword;
     @InjectView(R.id.emailField) EditText mEmail;
     @InjectView(R.id.signUpbutton) Button mSignUpButton;
+    @InjectView(R.id.firstNameField) EditText mFirstName;
+    @InjectView(R.id.lastNameField) EditText mLastName;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        ButterKnife.inject(this);
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,12 +39,16 @@ public class SignUpActivity extends ActionBarActivity {
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
                 String email = mEmail.getText().toString();
+                String firstName = mFirstName.getText().toString();
+                String lastName = mLastName.getText().toString();
 
                 username = username.trim();
                 password = password.trim();
                 email = email.trim();
+                firstName = firstName.trim();
+                lastName = lastName.trim();
 
-                if (username.isEmpty() || password.isEmpty() || email.isEmpty()){
+                if (username.isEmpty() || password.isEmpty() || email.isEmpty() || firstName.isEmpty() || lastName.isEmpty()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
 
                     //Set the message of the dialog box from a string resource
@@ -60,17 +68,20 @@ public class SignUpActivity extends ActionBarActivity {
                     user.setUsername(username);
                     user.setPassword(password);
                     user.setEmail(email);
+                    user.put("firstName", firstName);
+                    user.put("lastName", lastName);
 
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e == null){
+                            if (e == null) {
                                 //success (no exception thrown)
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            }
-                            else {
+                                startActivity(intent);
+
+                            } else {
 
                                 //Show data validation error as dialog box from Parse exception
 

@@ -1,4 +1,4 @@
-package com.alvinsvitzer.silentcircle;
+package com.alvinsvitzer.silentcircle.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
+import com.alvinsvitzer.silentcircle.R;
+import com.parse.ParseUser;
 
 import java.util.Locale;
 
@@ -38,23 +39,26 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      */
     ViewPager mViewPager;
 
-    @Override
+    public static final String TAG = MainActivity.class.getSimpleName();;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null){
+            //Start login process if there is no current user signed in
+            Intent loginIntent = new Intent(this, LoginActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+        }
+        else{
 
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "GEOA0udADw7u779mWThMiRmLvxQAJNIHLcSvcF54", "2cVwjqvIsD8wR2XSktt44n6pfVsOgG3v0WaVS8tu");
+            //If there is a user signed in already, print to the log file
+            Log.i(TAG, currentUser.getUsername());
+        }
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-
-        Intent loginIntent = new Intent(this, LoginActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
