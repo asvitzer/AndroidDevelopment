@@ -1,6 +1,7 @@
 package com.alvinsvitzer.silentcircle;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -9,13 +10,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
 public class SignUpActivity extends ActionBarActivity {
 
-    @InjectView(R.id.emailField) EditText mUsername;
+    @InjectView(R.id.userNameField) EditText mUsername;
     @InjectView(R.id.passwordField) EditText mPassword;
     @InjectView(R.id.emailField) EditText mEmail;
     @InjectView(R.id.signUpbutton) Button mSignUpButton;
@@ -51,6 +56,40 @@ public class SignUpActivity extends ActionBarActivity {
                 }
                 else{
                     //create new user here
+                    ParseUser user = new ParseUser();
+                    user.setUsername(username);
+                    user.setPassword(password);
+                    user.setEmail(email);
+
+                    user.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null){
+                                //success (no exception thrown)
+                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            }
+                            else {
+
+                                //Show data validation error as dialog box from Parse exception
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+
+                                //Set the message of the dialog box from a string resource
+                                builder.setMessage(e.getMessage());
+                                //Set the title of the dialog box from a string resources
+                                builder.setTitle(R.string.signup_error_title);
+                                //Leverage android's stock positive button for ok
+                                builder.setPositiveButton(android.R.string.ok, null);
+
+                                //Create the dialog box and show it
+                                AlertDialog userDialog = builder.create();
+                                userDialog.show();
+
+                            }
+                        }
+                    });
                 }
             }
         });
