@@ -18,6 +18,8 @@
     <string name="Last_Name_Hint">Last Name</string>
     <string name="Email_Hint">Email Address</string>
     <string name="Username_Hint">Username</string>
-    <string name="signup_error_message">Please make sure you enter a username, password, and email address</string>
+    <string name="signup_error_message">Please make sure you have entered all fields: First Name, Last Name, Username, Password, and Email Address.</string>
     <string name="signup_error_title">Oops!</string>
+    <string name="login_error_message">Please make sure you enter a username and password.</string>
+    <string name="login_error_title">Oops!</string>
 </resources>
