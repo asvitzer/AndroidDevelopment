@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,7 +30,12 @@ public class LoginActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Used for showing the progress bar for actions later on. Needs to run before ContentView is set.
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
 
@@ -64,32 +70,41 @@ public class LoginActivity extends ActionBarActivity {
                     //Create the dialog box and show it
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                } else ParseUser.logInInBackground(username, password, new LogInCallback() {
-                    public void done(ParseUser user, ParseException e) {
-                        if (user != null) {
-                            // Hooray! The user is logged in.
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        } else {
+                } else {
 
-                            // Signup failed. Look at the ParseException to see what happened.
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    //Activate progress indicator for logging into Parse backend.
+                    setProgressBarIndeterminateVisibility(true);
+                    ParseUser.logInInBackground(username, password, new LogInCallback() {
+                        public void done(ParseUser user, ParseException e) {
 
-                            //Set the message of the dialog box from a string resource
-                            builder.setMessage(e.getMessage());
-                            //Set the title of the dialog box from a string resources
-                            builder.setTitle(R.string.login_error_title);
-                            //Leverage android's stock positive button for ok
-                            builder.setPositiveButton(android.R.string.ok, null);
+                            //Deactivate progress indicator
+                            setProgressBarIndeterminateVisibility(false);
 
-                            //Create the dialog box and show it
-                            AlertDialog userDialog = builder.create();
-                            userDialog.show();
+                            if (user != null) {
+                                // Hooray! The user is logged in.
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else {
+
+                                // Signup failed. Look at the ParseException to see what happened.
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+
+                                //Set the message of the dialog box from a string resource
+                                builder.setMessage(e.getMessage());
+                                //Set the title of the dialog box from a string resources
+                                builder.setTitle(R.string.login_error_title);
+                                //Leverage android's stock positive button for ok
+                                builder.setPositiveButton(android.R.string.ok, null);
+
+                                //Create the dialog box and show it
+                                AlertDialog userDialog = builder.create();
+                                userDialog.show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }

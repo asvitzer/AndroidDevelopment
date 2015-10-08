@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,6 +30,9 @@ public class SignUpActivity extends ActionBarActivity {
     @InjectView(R.id.lastNameField) protected EditText mLastName;
 
     protected void onCreate(Bundle savedInstanceState) {
+        //Used for showing the progress bar for actions later on. Needs to run before ContentView is set.
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.inject(this);
@@ -63,6 +67,10 @@ public class SignUpActivity extends ActionBarActivity {
                     dialog.show();
                 }
                 else{
+
+                    //Activate progress indicator for creating user object and passing into Parse.
+                    setProgressBarIndeterminateVisibility(true);
+
                     //create new user here
                     ParseUser user = new ParseUser();
                     user.setUsername(username);
@@ -71,9 +79,15 @@ public class SignUpActivity extends ActionBarActivity {
                     user.put("firstName", firstName);
                     user.put("lastName", lastName);
 
+
                     user.signUpInBackground(new SignUpCallback() {
+
                         @Override
                         public void done(ParseException e) {
+
+                            //Deactivate progress indicator after getting Parse SignUpCallBack.
+                            setProgressBarIndeterminateVisibility(false);
+
                             if (e == null) {
                                 //success (no exception thrown)
                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
