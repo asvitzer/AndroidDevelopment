@@ -22,10 +22,10 @@ import butterknife.InjectView;
 
 public class LoginActivity extends ActionBarActivity {
 
-    @InjectView(R.id.signUpText) TextView mSignUpTextView;
-    @InjectView(R.id.userNameField) EditText mUsername;
-    @InjectView(R.id.passwordField) EditText mPassword;
-    @InjectView(R.id.loginButton) Button mLoginButton;
+    @InjectView(R.id.signUpText) protected TextView mSignUpTextView;
+    @InjectView(R.id.userNameField) protected EditText mUsername;
+    @InjectView(R.id.passwordField) protected EditText mPassword;
+    @InjectView(R.id.loginButton) protected Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +107,6 @@ public class LoginActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
