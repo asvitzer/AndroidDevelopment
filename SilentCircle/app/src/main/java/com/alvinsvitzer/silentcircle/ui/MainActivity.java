@@ -48,10 +48,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser == null){
             //Start login process if there is no current user signed in
-            Intent loginIntent = new Intent(this, LoginActivity.class);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(loginIntent);
+            startLoginActivity();
         }
         else{
 
@@ -95,6 +92,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
+    public void startLoginActivity() {
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,8 +115,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.main_menu_logout) {
+            ParseUser.logOut();
+            startLoginActivity();
         }
 
         return super.onOptionsItemSelected(item);
