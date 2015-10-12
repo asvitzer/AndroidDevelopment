@@ -26,8 +26,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return MainActivity.PlaceholderFragment.newInstance(position + 1);
+        // Return a PlaceholderFragment (defined as separate clases in the helper folder).
+
+        switch(position){
+        case 0:
+            return InboxFragment.newInstance(position + 1);
+        case 1:
+            return FriendFragment.newInstance(position + 1);
+        }
+
+        return null; //Should never happen
     }
 
     @Override
