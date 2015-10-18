@@ -16,14 +16,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            debuggable true
+        }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
     compile 'com.parse.bolts:bolts-android:1.+'
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.jakewharton:butterknife:6.1.0'
 }
-
-
