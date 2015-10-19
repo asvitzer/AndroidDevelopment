@@ -80,10 +80,16 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Logout Menu Item
         if (id == R.id.main_menu_logout) {
             ParseUser.logOut();
             startLoginActivity();
+        }
+
+        //Edit Friends Menu Item
+        else if (id == R.id.main_menu_edit_friends) {
+            Intent intent = new Intent(this, EditFriendsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

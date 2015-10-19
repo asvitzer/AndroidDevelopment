@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class SignUpActivity extends ActionBarActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     @InjectView(R.id.userNameField) protected EditText mUsername;
     @InjectView(R.id.passwordField) protected EditText mPassword;
