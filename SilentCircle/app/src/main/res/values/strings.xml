@@ -3,9 +3,7 @@
 
     <string name="Inbox">Inbox</string>
     <string name="Friends">Friends</string>
-
     <string name="hello_world">Hello world!</string>
-
     <string name="main_menu_logout">Logout</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="username_hint">Username</string>
@@ -19,6 +17,7 @@
     <string name="Username_Hint">Username</string>
     <string name="signup_error_message">Please make sure you have entered all fields: First Name, Last Name, Username, Password, and Email Address.</string>
     <string name="signup_error_title">Oops!</string>
+    <string name="error_title">Sorry, an error has occurred!</string>
     <string name="login_error_message">Please make sure you enter a username and password.</string>
     <string name="login_error_title">Oops!</string>
     <string name="empty_inbox_label">No new messages. . .</string>
