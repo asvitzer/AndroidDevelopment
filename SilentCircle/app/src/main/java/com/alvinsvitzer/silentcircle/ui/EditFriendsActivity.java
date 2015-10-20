@@ -18,7 +18,9 @@ import com.alvinsvitzer.silentcircle.model.ParseConstants;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class EditFriendsActivity extends ListActivity {
 
     public static final String TAG = EditFriendsActivity.class.getSimpleName();
     protected List<ParseUser> mUserList;
+    protected ParseRelation<ParseUser> mFriendsRelation;
+    protected ParseUser mCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,9 @@ public class EditFriendsActivity extends ListActivity {
     @Override
     protected void onResume(){
         super.onResume();
+
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
         //Activate progress indicator for creating user object and passing into Parse.
         setProgressBarIndeterminateVisibility(true);
@@ -130,6 +137,34 @@ public class EditFriendsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+
+        if (getListView().isItemChecked(position)){
+
+            //Add Friend Logic
+
+            //Add relation based off of users checked and passed in from onListItemClick
+            mFriendsRelation.add(mUserList.get(position));
+
+            //Save in background asynchronously
+            mCurrentUser.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+
+                    if (e != null) {
+                        //Send error message to log.
+                        Log.e(TAG, e.getMessage());
+
+                    }
+
+                }
+            });
+
+        } else {
+
+            //Remove Friend Relation
+
+        }
+
     }
 }
 
