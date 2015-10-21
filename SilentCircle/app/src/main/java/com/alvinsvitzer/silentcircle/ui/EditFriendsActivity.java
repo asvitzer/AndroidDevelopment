@@ -69,26 +69,31 @@ public class EditFriendsActivity extends ListActivity {
             @Override
             public void done(List<ParseUser> users, ParseException e) {
 
-                setProgressBarIndeterminateVisibility(true);
+                //Turn off progress flag
+                setProgressBarIndeterminateVisibility(false);
 
-                //Success
+                //Success on retrieving users from Parse
                 if (e == null) {
 
                     mUserList = users;
                     String userNames[] = new String[mUserList.size()];
 
+                    //For every Parse User, grab the username and store it in an string array
                     int x = 0;
                     for (ParseUser user : mUserList) {
                         userNames[x] = user.getUsername();
                         x++;
                     }
 
+                    //Adapt ArrayList to List View Items for display
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(
                             EditFriendsActivity.this,
                             android.R.layout.simple_list_item_checked,
                             userNames);
 
                     setListAdapter(adapter);
+
+                    addFriendCheckmarks();
 
                 } else {
 
@@ -166,5 +171,38 @@ public class EditFriendsActivity extends ListActivity {
         }
 
     }
+
+
+    private void addFriendCheckmarks(){
+
+        //Return query of friend relation to place in List to add checkmark back in
+        mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+
+                if (e == null){
+                    //list returned -- look for match
+                    for (int i = 0; i < mUserList.size(); i++){
+
+                        ParseUser user = mUserList.get(i);
+
+                        for (ParseUser friend : friends){
+
+                            //Friend Match, then set item to being checked
+                            if (friend.getObjectId().equals(user.getObjectId())){
+                                getListView().setItemChecked(i, true);
+                            }
+
+                        }
+                    }
+                }
+                else {
+
+                }
+            }
+        });
+    }
+
+
 }
 
