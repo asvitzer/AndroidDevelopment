@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();;
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         //Used for showing the progress bar for actions later on. Needs to run before ContentView is set.
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
