@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.alvinsvitzer.silentcircle.R;
 import com.alvinsvitzer.silentcircle.helper.SectionsPagerAdapter;
@@ -35,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Used for showing the progress bar for actions later on. Needs to run before ContentView is set.
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         setContentView(R.layout.activity_main);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
