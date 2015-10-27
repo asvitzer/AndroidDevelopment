@@ -145,30 +145,29 @@ public class EditFriendsActivity extends ListActivity {
 
         if (getListView().isItemChecked(position)){
 
-            //Add Friend Logic
-
             //Add relation based off of users checked and passed in from onListItemClick
             mFriendsRelation.add(mUserList.get(position));
-
-            //Save in background asynchronously
-            mCurrentUser.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-
-                    if (e != null) {
-                        //Send error message to log.
-                        Log.e(TAG, e.getMessage());
-
-                    }
-
-                }
-            });
 
         } else {
 
             //Remove Friend Relation
+            mFriendsRelation.remove(mUserList.get(position));
 
         }
+
+        //Save add & remove relations in background asynchronously
+        mCurrentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                if (e != null) {
+                    //Send error message to log.
+                    Log.e(TAG, e.getMessage());
+
+                }
+
+            }
+        });
 
     }
 
