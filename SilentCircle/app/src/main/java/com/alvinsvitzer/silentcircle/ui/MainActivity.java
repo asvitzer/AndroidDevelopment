@@ -1,7 +1,10 @@
 package com.alvinsvitzer.silentcircle.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +35,31 @@ public class MainActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
-    public static final String TAG = MainActivity.class.getSimpleName();;
+    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int TAKE_PHOTO_REQUEST = 1;
+    public static final int TAKE_VIDEO_REQUEST = 2;
+    public static final int PICK_PHOTO_REQUEST = 3;
+    public static final int PICK_VIDEO_REQUEST = 4;
+
+    //Setting up OnClickListener in member variable area for readability when used later
+    protected DialogInterface.OnClickListener mDialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch(which){
+                //Take Picture
+                case 0:
+                    Intent takePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(takePhoto, TAKE_PHOTO_REQUEST);
+                //Take Video
+                case 1:
+                //Choose Picture
+                case 2:
+                //Choose Video
+                case 3:
+            }
+
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -86,16 +113,28 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //Logout Menu Item
-        if (id == R.id.main_menu_logout) {
-            ParseUser.logOut();
-            startLoginActivity();
-        }
+        //Do I not need break statements? I'm, guessing not since they're all going to new activities
+        switch(id){
 
-        //Edit Friends Menu Item
-        else if (id == R.id.main_menu_edit_friends) {
-            Intent intent = new Intent(this, EditFriendsActivity.class);
-            startActivity(intent);
+            case R.id.main_menu_logout:
+                ParseUser.logOut();
+                startLoginActivity();
+            case R.id.main_menu_edit_friends:
+                Intent intent = new Intent(this, EditFriendsActivity.class);
+                startActivity(intent);
+            case R.id.main_menu_camera:
+
+                //AlertDialog builder that uses the Camera Choices array in
+                //String resources to populate the options
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                //Set the message of the dialog box from a string resource
+                builder.setItems(R.array.camera_choices,mDialogListener);
+
+                //Create the dialog box and show it
+                AlertDialog userDialog = builder.create();
+                userDialog.show();
+
         }
 
         return super.onOptionsItemSelected(item);
