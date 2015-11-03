@@ -73,8 +73,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 //Take Video
                 case 1:
+
+                    Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+                    if (mMediaUri == null) {
+
+                        Toast.makeText(MainActivity.this, R.string.error_external_storage, Toast.LENGTH_LONG).show();
+
+                    }
+
+                    else {
+
+                        videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+
+                        //Clip video to 10 seconds
+                        videoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,10);
+
+                        //Downgrade media quality
+                        videoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,0);
+                        startActivityForResult(videoIntent, TAKE_VIDEO_REQUEST);
+                    }
+
+
                 //Choose Picture
                 case 2:
+
+                    Intent choosePhotoIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    choosePhotoIntent.setType("image/*");
+                    startActivityForResult(choosePhotoIntent, PICK_PHOTO_REQUEST);
+
                 //Choose Video
                 case 3:
             }
@@ -170,6 +197,40 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            //If the returned intent was started to either take picture of photo, check the
+            //data in the intent object. If it's empty, display an error to the user via Toast
+            //Otherwise, set the Uri object
+            if (requestCode == PICK_PHOTO_REQUEST || requestCode == PICK_VIDEO_REQUEST) {
+                if (data == null) {
+                    Toast.makeText(this, getString(R.string.general_error_message), Toast.LENGTH_LONG)
+                            .show();
+                }
+                else{
+                    mMediaUri = data.getData();
+                }
+            }
+            else{
+                //broadcast to gallery via intent that media files can be added
+                //Only executes if taking new photo or video
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScanIntent.setData(mMediaUri);
+                sendBroadcast(mediaScanIntent);
+            }
+
+
+        }
+            else if(resultCode != RESULT_CANCELED){
+                Toast.makeText(this, R.string.general_error_message, Toast.LENGTH_LONG).show();
+            }
 
     }
 
