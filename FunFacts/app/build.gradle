@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 16
+    compileSdkVersion 22
     buildToolsVersion "19.1.0"
 
     defaultConfig {
         applicationId "com.alvinsvitzer.funfacts"
         minSdkVersion 14
-        targetSdkVersion 16
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
