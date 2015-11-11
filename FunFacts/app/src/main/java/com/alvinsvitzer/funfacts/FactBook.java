@@ -22,11 +22,16 @@ public class FactBook {
         return factList.get(factSpot);
     }
 
+    public String getFirstFact(){
+
+        return factList.get(0);
+    }
+
     private void setUpFacts(){
         factList = new ArrayList<String>();
 
         factList.add("Banging your head against a wall burns 150 calories an hour.");
-        factList.add("Bikinis and tampons invented by men.");
+        factList.add("Bikinis and tampons were invented by men.");
         factList.add("A toaster uses almost half as much energy as a full-sized oven.");
         factList.add("A baby octopus is about the size of a flea when it is born.");
         factList.add("Facebook, Skype and Twitter are all banned in China.");
