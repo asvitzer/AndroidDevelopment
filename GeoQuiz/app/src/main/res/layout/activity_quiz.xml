@@ -11,9 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:text="New Text"
-        android:id="@+id/textView"
+        tools:text="New Text"
+        android:id="@+id/questionText"
         android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_button"
+        android:id="@+id/nextButton"/>
 
     <LinearLayout
         android:orientation="horizontal"
