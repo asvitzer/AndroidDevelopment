@@ -11,9 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        tools:text="New Text"
+        tools:text="Question Text"
         android:id="@+id/questionText"
         android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cheat!"
+        android:id="@+id/cheatButton"/>
 
     <LinearLayout
         android:orientation="horizontal"

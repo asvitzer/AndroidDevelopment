@@ -1,5 +1,6 @@
 package com.alvinsvitzer.geoquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,12 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private ImageButton mNextButton;
     private ImageButton mPrevButton;
+    private Button mCheatButton;
     private TextView mQuestionText;
 
     private static final String TAG = QuizActivity.class.getSimpleName();
     private static final String KEY_INDEX = "Question_Bank_Index";
+    private static final String EXTRA_ANSWER_IS_TRUE = "com.alvinsvitzer.geoquiz.answer_is_true";
 
     //This should be moved to a model object once it gets more complex
     private TrueFalse[] mQuestionBank = {
@@ -41,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
         mTrueButton = (Button) findViewById(R.id.trueButton);
         mNextButton = (ImageButton) findViewById(R.id.nextButton);
         mPrevButton = (ImageButton) findViewById(R.id.prevButton);
+        mCheatButton = (Button) findViewById(R.id.cheatButton);
         mQuestionText = (TextView) findViewById(R.id.questionText);
 
         if (savedInstanceState != null){
@@ -48,6 +52,16 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         updateQuestions();
+
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QuizActivity.this,CheatActivity.class);
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
+                intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+                startActivity(intent);
+            }
+        });
 
         mQuestionText.setOnClickListener(new View.OnClickListener() {
             @Override

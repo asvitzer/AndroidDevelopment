@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        tools:text="New Text"
+        tools:text="Question Me!"
         android:id="@+id/questionText"
         android:layout_gravity="center_horizontal"/>
 
@@ -51,6 +51,13 @@
             android:contentDescription="@string/contentDescNextButton"
             android:layout_gravity="bottom|right"
             android:src="@drawable/ic_navigate_next_black_24dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Cheat!"
+        android:layout_gravity="center_horizontal|bottom"
+        android:id="@+id/cheatButton"/>
 
 
 </FrameLayout>
