@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
-        android:id="@+id/answerTestView"/>
+        android:id="@+id/answerTextView"/>
 
     <Button
         android:layout_width="wrap_content"

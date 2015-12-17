@@ -18,10 +18,11 @@ public class QuizActivity extends AppCompatActivity {
     private ImageButton mPrevButton;
     private Button mCheatButton;
     private TextView mQuestionText;
+    private Boolean mCheated;
 
     private static final String TAG = QuizActivity.class.getSimpleName();
     private static final String KEY_INDEX = "Question_Bank_Index";
-    private static final String EXTRA_ANSWER_IS_TRUE = "com.alvinsvitzer.geoquiz.answer_is_true";
+    public static final String EXTRA_ANSWER_IS_TRUE = "com.alvinsvitzer.geoquiz.answer_is_true";
 
     //This should be moved to a model object once it gets more complex
     private TrueFalse[] mQuestionBank = {
@@ -59,7 +60,7 @@ public class QuizActivity extends AppCompatActivity {
                 Intent intent = new Intent(QuizActivity.this,CheatActivity.class);
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isTrueQuestion();
                 intent.putExtra(EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -192,14 +193,31 @@ public class QuizActivity extends AppCompatActivity {
 
         int messageResId = 0;
 
-        if(userPressedTrue == answerTruth){
-            messageResId = R.string.toast_correct;
-        }
-        else {
-            messageResId = R.string.toast_incorrect;
+        if(mCheated){
+            messageResId = R.string.judgement_toast;
         }
 
+        else {
+
+            if (userPressedTrue == answerTruth) {
+                messageResId = R.string.toast_correct;
+            } else {
+                messageResId = R.string.toast_incorrect;
+            }
+        }
         Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data == null){
+
+            return;
+        }
+
+        mCheated = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_IS_SHOWN, false);
     }
 }

@@ -7,6 +7,7 @@ public class TrueFalse {
 
 
     private int mQuestion;
+    private boolean mTrueQuestion;
 
     public boolean isTrueQuestion() {
         return mTrueQuestion;
@@ -23,8 +24,6 @@ public class TrueFalse {
     public void setQuestion(int question) {
         mQuestion = question;
     }
-
-    private boolean mTrueQuestion;
 
     public TrueFalse(int question, boolean trueQuestion){
 
