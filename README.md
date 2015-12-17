@@ -1,23 +1,21 @@
-<snippet>
-  <content><![CDATA[
-# ${1:AndroidDevelopment}
+# AndroidDevelopment
 
 Collection of Android apps developed to learn the Android SDK.
 
 ## Installation
 
-1) Download Android Studio.
-2) Pull down the project files and open the them in Android Studio.
+1. Download Android Studio.
+2. Pull down the project files and open the them in Android Studio.
 
 ## Projects
 
-AdventureTime:	Choose your own adventure story app
-Crystal Ball:	  Fortune-telling app
-FunFacts:       Fact repository	
-GeoQuiz:        True/False Trivia app
-GolfCard: 	    Keeps track of scores for golfing on an 18-hole course.
-SilentCircle:	  Adding intents to take video & choose picture	a month ago
-WeatherVane:    Weather app that plugs into Forecast.IO for daily & 7-day conditions
+1. AdventureTime:	  Choose your own adventure story app
+2. Crystal Ball:	  Fortune-telling app
+3. FunFacts:        Fact repository	
+4. GeoQuiz:         True/False Trivia app
+5. GolfCard: 	      Keeps track of scores for golfing on an 18-hole course.
+6. SilentCircle:	  Messaging app to send messages which are then deleted from Parse backend
+7. WeatherVane:     Weather app that plugs into Forecast.IO for daily & 7-day conditions
 
 ## Contributing
 
