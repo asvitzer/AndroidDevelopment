@@ -16,5 +16,6 @@
     <string name="warning_text_view">Are you sure you want to do this?</string>
     <string name="show_answer_button">Show Answer</string>
     <string name="judgement_toast">Cheating is wrong.</string>
+    <string name="duplicate_answer">You\'ve already answered this question!</string>
 
 </resources>

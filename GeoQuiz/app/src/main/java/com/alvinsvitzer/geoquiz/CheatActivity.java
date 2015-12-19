@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class CheatActivity extends AppCompatActivity {
 
     private boolean mAnswerIsTrue;
+    private boolean mIsAnswerShown;
     private Button mShowAnswerButton;
     private TextView mAnswerTextView;
 
@@ -23,7 +24,11 @@ public class CheatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mAnswerIsTrue = intent.getBooleanExtra(QuizActivity.EXTRA_ANSWER_IS_TRUE, false);
 
-        setAnswerShownResult(false);
+        if (savedInstanceState != null){
+            mIsAnswerShown = savedInstanceState.getBoolean(EXTRA_ANSWER_IS_SHOWN, false);
+        }
+
+        setAnswerShownResult(mIsAnswerShown);
 
         mShowAnswerButton = (Button) findViewById(R.id.showAnswerButton);
         mAnswerTextView = (TextView) findViewById(R.id.answerTextView);
@@ -41,13 +46,20 @@ public class CheatActivity extends AppCompatActivity {
                     mAnswerTextView.setText(R.string.false_button);
                 }
 
-                setAnswerShownResult(true);
+                mIsAnswerShown = true;
+                setAnswerShownResult(mIsAnswerShown);
 
             }
         });
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(EXTRA_ANSWER_IS_SHOWN, mIsAnswerShown);
+    }
 
     private void setAnswerShownResult(boolean isAnswerShown){
 

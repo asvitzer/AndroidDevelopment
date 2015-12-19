@@ -8,6 +8,7 @@ public class TrueFalse {
 
     private int mQuestion;
     private boolean mTrueQuestion;
+    private boolean mAnswered;
 
     public boolean isTrueQuestion() {
         return mTrueQuestion;
@@ -30,5 +31,13 @@ public class TrueFalse {
         mQuestion = question;
         mTrueQuestion = trueQuestion;
 
+    }
+
+    public boolean getAnswered() {
+        return mAnswered;
+    }
+
+    public void setAnswered(boolean answered) {
+        mAnswered = answered;
     }
 }
