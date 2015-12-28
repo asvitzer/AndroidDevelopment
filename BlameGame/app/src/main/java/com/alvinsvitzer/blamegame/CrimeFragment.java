@@ -1,12 +1,15 @@
 package com.alvinsvitzer.blamegame;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.alvinsvitzer.blamegame.model.Crime;
@@ -18,7 +21,8 @@ public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
     private EditText mCrimeTitle;
-
+    private CheckBox mSolvedCheckBox;
+    private Button mDateButton;
 
     public CrimeFragment() {
     }
@@ -35,8 +39,19 @@ public class CrimeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, container, false);
 
-        mCrimeTitle = (EditText) v.findViewById(R.id.editCrimeTitle);
+        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.solved_check_box);
+        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mCrime.setSolved(isChecked);
+            }
+        });
 
+        mDateButton = (Button) v.findViewById(R.id.crime_date);
+        mDateButton.setEnabled(false); //false for now. Until I setup button to be date picker
+        mDateButton.setText(mCrime.getDate().toString());
+
+        mCrimeTitle = (EditText) v.findViewById(R.id.crime_title);
         mCrimeTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
