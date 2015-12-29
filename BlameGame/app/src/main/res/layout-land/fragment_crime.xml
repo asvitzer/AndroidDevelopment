@@ -28,21 +28,27 @@
         style="?android:listSeparatorTextViewStyle"
         />
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="FRI MAR 27 15:10:11 EDT 2015"
-        android:id="@+id/crime_date"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_height="match_parent">
 
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:id="@+id/solved_check_box"
-        android:text="@string/solved_checkbox_label"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="FRI MAR 27 15:10:11 EDT 2015"
+            android:id="@+id/crime_date"
+            android:layout_weight="1"/>
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:id="@+id/solved_check_box"
+            android:text="@string/solved_checkbox_label"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
 
 </LinearLayout>
