@@ -49,7 +49,13 @@ public class CrimeFragment extends Fragment {
 
         mDateButton = (Button) v.findViewById(R.id.crime_date);
         mDateButton.setEnabled(false); //false for now. Until I setup button to be date picker
-        mDateButton.setText(mCrime.getDate().toString());
+
+
+        String formatDate = android.text.format.DateFormat
+                .getLongDateFormat(getActivity())
+                .format(mCrime.getDate());
+
+        mDateButton.setText(formatDate);
 
         mCrimeTitle = (EditText) v.findViewById(R.id.crime_title);
         mCrimeTitle.addTextChangedListener(new TextWatcher() {
