@@ -1,5 +1,7 @@
 package com.alvinsvitzer.blamegame.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,6 +14,8 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
+
+
 
     public Crime(){
 
@@ -26,6 +30,7 @@ public class Crime {
     public void setTitle(String title) {
         mTitle = title;
     }
+
     public Date getDate() {
         return mDate;
     }
