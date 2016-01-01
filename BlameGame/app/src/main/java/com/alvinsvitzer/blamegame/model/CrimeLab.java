@@ -16,7 +16,15 @@ public class CrimeLab {
 
     private CrimeLab(Context context) {
 
-       crimeList = new ArrayList<Crime>();
+       crimeList = new ArrayList<>();
+
+        for (int x = 0; x < 100; x++){
+
+            Crime c = new Crime();
+            c.setTitle("Crime #" + x);
+            c.setSolved(x % 2 == 0); //set every other crime object to not solved
+            crimeList.add(c);
+        }
     }
 
     public static synchronized CrimeLab getInstance(Context context) {
@@ -37,9 +45,15 @@ public class CrimeLab {
         return crimeList;
     }
 
-    public Crime getCrime(UUID uuid){
+    public Crime getCrime(UUID id){
 
-        return new Crime(); //Change to loop through the crime objects in the Arraylist
+        for (Crime c: crimeList){
+            if (c.getId().equals(id)){
+                return c;
+            }
+        }
+
+        return null;
 
     }
 

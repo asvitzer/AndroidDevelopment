@@ -39,6 +39,10 @@ public class Crime {
         mDate = date;
     }
 
+    public UUID getId(){
+        return mId;
+    }
+
     public boolean isSolved() {
         return mSolved;
     }
