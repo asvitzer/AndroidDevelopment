@@ -13,6 +13,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.alvinsvitzer.blamegame.model.Crime;
+import com.alvinsvitzer.blamegame.model.CrimeLab;
+
+import java.util.UUID;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -31,7 +34,11 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        //mCrime = new Crime();
+
+        UUID crimeId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        mCrime = CrimeLab.getInstance(getActivity()).getCrime(crimeId);
     }
 
     @Override
