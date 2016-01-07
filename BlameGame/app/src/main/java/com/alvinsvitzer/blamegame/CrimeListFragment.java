@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alvinsvitzer.blamegame.model.Crime;
 import com.alvinsvitzer.blamegame.model.CrimeLab;
@@ -22,9 +21,9 @@ import java.util.List;
  */
 public class CrimeListFragment extends Fragment {
 
-
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private int crimeTracker = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,13 +38,37 @@ public class CrimeListFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
 
         CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
-        mAdapter = new CrimeAdapter(crimes);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null){
+
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+
+        }
+
+        else{
+
+            //Used to update only a specific ViewHolder since only 1 crime can be changed at
+            //once. If it's -1, the entire thing is refreshed.
+            //Need to finish implementing
+            if (crimeTracker == -1) {
+                mAdapter.notifyDataSetChanged();
+            }
+            else {
+                mAdapter.notifyItemChanged(crimeTracker);
+            }
+        }
+
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -76,10 +99,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), mTitleTextView.getText() + " clicked!", Toast.LENGTH_SHORT)
-                    .show();
 
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
         }
     }
