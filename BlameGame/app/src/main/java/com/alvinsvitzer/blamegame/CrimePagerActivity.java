@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.alvinsvitzer.blamegame.model.Crime;
@@ -35,7 +36,7 @@ public class CrimePagerActivity extends FragmentActivity {
 
         mCrimes = CrimeLab.getInstance(this).getCrimes();
         FragmentManager fragMan = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentPagerAdapter(fragMan) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragMan) {
             @Override
             public Fragment getItem(int position) {
 
@@ -49,7 +50,7 @@ public class CrimePagerActivity extends FragmentActivity {
             }
         });
 
-        updateCrime();
+        //updateCrime();
 
     }
 
