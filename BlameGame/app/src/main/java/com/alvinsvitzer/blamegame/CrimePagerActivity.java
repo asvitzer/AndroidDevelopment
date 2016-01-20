@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.alvinsvitzer.blamegame.model.Crime;
 import com.alvinsvitzer.blamegame.model.CrimeLab;
@@ -19,7 +20,7 @@ import java.util.UUID;
 /**
  * Created by Alvin on 1/6/16.
  */
-public class CrimePagerActivity extends FragmentActivity {
+public class CrimePagerActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
