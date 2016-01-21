@@ -18,13 +18,16 @@ public class CrimeLab {
 
        crimeList = new ArrayList<>();
 
+/*
+Loop to create 100 test crime objects
+
         for (int x = 0; x < 100; x++){
 
             Crime c = new Crime();
             c.setTitle("Crime #" + x);
             c.setSolved(x % 2 == 0); //set every other crime object to not solved
             crimeList.add(c);
-        }
+        }*/
     }
 
     public static synchronized CrimeLab getInstance(Context context) {
@@ -43,6 +46,12 @@ public class CrimeLab {
     public List<Crime> getCrimes(){
 
         return crimeList;
+    }
+
+    public void addCrime(Crime c){
+
+        crimeList.add(c);
+
     }
 
     public Crime getCrime(UUID id){
