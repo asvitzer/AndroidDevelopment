@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -36,6 +39,37 @@ public class CrimeListFragment extends Fragment {
         updateUI();
 
         return v;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+      switch(item.getItemId()){
+
+          case R.id.menu_item_new_crime:
+
+              Crime c = new Crime();
+              CrimeLab.getInstance(getActivity())
+                      .addCrime(c);
+
+              Intent intent = CrimePagerActivity.newIntent(getActivity(), c.getId());
+              startActivity(intent);
+              return true;
+          default:
+              return super.onOptionsItemSelected(item);
+      }
     }
 
     @Override
