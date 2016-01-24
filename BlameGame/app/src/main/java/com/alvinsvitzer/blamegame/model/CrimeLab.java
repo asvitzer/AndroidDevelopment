@@ -54,6 +54,11 @@ Loop to create 100 test crime objects
 
     }
 
+    public void removeCrime(Crime c){
+
+        crimeList.remove(c);
+    }
+
     public Crime getCrime(UUID id){
 
         for (Crime c: crimeList){
