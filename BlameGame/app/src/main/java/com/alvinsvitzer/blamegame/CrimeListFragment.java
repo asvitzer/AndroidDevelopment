@@ -1,6 +1,7 @@
 package com.alvinsvitzer.blamegame;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,9 +27,11 @@ import java.util.List;
 public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
+    private TextView mEmptyView;
     private CrimeAdapter mAdapter;
     private int crimeTracker = -1;
     private boolean mSubtitleVisible;
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +40,12 @@ public class CrimeListFragment extends Fragment {
 
         mCrimeRecyclerView = (RecyclerView) v.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mEmptyView = (TextView) v.findViewById(R.id.empty_view);
+
+        if (savedInstanceState != null){
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+        }
 
         updateUI();
 
@@ -52,7 +61,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
+        inflater.inflate(R.menu.fragment_crime_list_menu, menu);
 
         MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
         if(mSubtitleVisible){
@@ -96,10 +105,26 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
     private void updateUI() {
 
         CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
+        if (crimes.isEmpty()) {
+            mCrimeRecyclerView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.GONE);
+        }
+
 
         if (mAdapter == null){
 
@@ -130,7 +155,11 @@ public class CrimeListFragment extends Fragment {
         CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         int crimeCount = crimeLab.getCrimes().size();
 
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        //String subtitle = getString(R.string.subtitle_format, crimeCount);
+
+        Resources res = getResources();
+        String subtitle = res.getQuantityString(R.plurals.subtitle_format, crimeCount, crimeCount);
+
 
         if (!mSubtitleVisible){
             subtitle = null;

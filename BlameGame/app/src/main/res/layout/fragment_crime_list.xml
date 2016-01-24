@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:id="@+id/crime_recycler_view">
+              android:id="@+id/crime_recycler_view"/>
 
-</android.support.v7.widget.RecyclerView>
+<TextView
+android:id="@+id/empty_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center_horizontal|center_vertical"
+android:text="@string/empty_list" />
+
+
+</LinearLayout>
