@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BlameGame</string>
     <string name="action_settings">Settings</string>
+    <string name="action_delete_crime">Delete Crime</string>
     <string name="crime_title_hint">Enter a title for the crime.</string>
     <string name="crime_title_label">TITLE</string>
     <string name="crime_details_label">DETAILS</string>
@@ -10,5 +11,9 @@
     <string name="new_crime">New Crime</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
-    <string name="subtitle_format">%1$s crimes</string>
+    <string name="empty_list">No data available</string>
+    <plurals name="subtitle_format">
+        <item quantity="one">%1$s crime.</item>
+        <item quantity="other">%1$s crimes.</item>
+    </plurals>
 </resources>
