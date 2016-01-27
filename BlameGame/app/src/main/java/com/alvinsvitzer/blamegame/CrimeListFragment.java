@@ -135,15 +135,8 @@ public class CrimeListFragment extends Fragment {
 
         else{
 
-            //Used to update only a specific ViewHolder since only 1 crime can be changed at
-            //once. If it's -1, the entire thing is refreshed.
-            //Need to finish implementing
-            if (crimeTracker == -1) {
-                mAdapter.notifyDataSetChanged();
-            }
-            else {
-                mAdapter.notifyItemChanged(crimeTracker);
-            }
+            mAdapter.setCrimes(crimes);
+            mAdapter.notifyDataSetChanged();
         }
 
         updateSubtitle();
@@ -230,6 +223,10 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
         }
     }
 
