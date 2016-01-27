@@ -1,4 +1,4 @@
-package database;
+package com.alvinsvitzer.blamegame.database;
 
 /**
  * Created by Alvin on 1/26/16.

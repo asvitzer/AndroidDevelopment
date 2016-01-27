@@ -1,14 +1,13 @@
-package database;
+package com.alvinsvitzer.blamegame.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
 
+import com.alvinsvitzer.blamegame.database.CrimeDbSchema.CrimeTable;
 import com.alvinsvitzer.blamegame.model.Crime;
 
 import java.util.Date;
 import java.util.UUID;
-
-import database.CrimeDbSchema.CrimeTable;
 
 /**
  * Created by Alvin on 1/26/16.
@@ -29,7 +28,6 @@ public class CrimeCursorWrapper extends CursorWrapper {
         String title = getString(getColumnIndex(CrimeTable.Cols.TITLE));
         long date = getLong(getColumnIndex(CrimeTable.Cols.DATE));
         int isSolved = getInt(getColumnIndex(CrimeTable.Cols.SOLVED));
-
 
         Crime crime = new Crime(UUID.fromString(uuidString));
         crime.setTitle(title);

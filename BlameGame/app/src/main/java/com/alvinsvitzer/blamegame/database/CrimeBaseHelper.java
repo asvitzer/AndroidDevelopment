@@ -1,10 +1,10 @@
-package database;
+package com.alvinsvitzer.blamegame.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import database.CrimeDbSchema.CrimeTable;
+import com.alvinsvitzer.blamegame.database.CrimeDbSchema.CrimeTable;
 
 /**
  * Created by Alvin on 1/26/16.
