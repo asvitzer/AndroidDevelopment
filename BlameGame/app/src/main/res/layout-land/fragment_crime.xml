@@ -37,6 +37,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="FRI MAR 27 15:10:11 EDT 2015"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:id="@+id/crime_date"
             android:layout_weight="1"/>
 
@@ -48,6 +50,28 @@
             android:id="@+id/solved_check_box"
             android:text="@string/solved_checkbox_label"
             android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/crime_suspect_text"
+            android:id="@+id/crime_suspect"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/crime_report_text"
+            android:id="@+id/crime_report"/>
     </LinearLayout>
 
 
