@@ -1,7 +1,5 @@
 package com.alvinsvitzer.blamegame.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -64,6 +62,11 @@ public class Crime {
         mSuspect = suspect;
     }
 
+
+    public String getPhotoFilename() {
+
+        return "IMG_" + getId().toString() + ".jpg";
+    }
 }
 
 
