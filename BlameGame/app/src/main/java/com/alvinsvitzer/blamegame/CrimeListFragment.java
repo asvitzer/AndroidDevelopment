@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.alvinsvitzer.blamegame.model.Crime;
 import com.alvinsvitzer.blamegame.model.CrimeLab;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -134,7 +136,7 @@ public class CrimeListFragment extends Fragment {
         mCallbacks = null;
     }
 
-    private void updateUI() {
+    public void updateUI() {
 
         CrimeLab crimeLab = CrimeLab.getInstance(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
@@ -208,7 +210,13 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
 
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+            //mDateTextView.setText(mCrime.getDate().toString());
+
+            Date dt = mCrime.getDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm aa");
+            String formattedDateTime = sdf.format(dt);
+            mDateTextView.setText(formattedDateTime);
+
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 

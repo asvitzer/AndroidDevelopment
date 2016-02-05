@@ -1,6 +1,7 @@
 package com.alvinsvitzer.blamegame;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -62,6 +63,13 @@ public class CrimeFragment extends Fragment {
     private ImageView mPhotoView;
     private File mPhotoFile;
 
+    private Callbacks mCallbacks;
+
+
+    public interface Callbacks{
+        void onCrimeUpdated(Crime crime);
+    }
+
     public static CrimeFragment newInstance(UUID crimeId){
 
         Bundle args = new Bundle();
@@ -71,6 +79,13 @@ public class CrimeFragment extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        mCallbacks = (Callbacks) context;
     }
 
     @Override
@@ -128,6 +143,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mCrime.setSolved(isChecked);
+                updateCrime();
             }
         });
 
@@ -166,6 +182,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mCrime.setTitle(s.toString());
+                updateCrime();
             }
 
             @Override
@@ -227,6 +244,13 @@ public class CrimeFragment extends Fragment {
     }
 
     @Override
+    public void onDetach(){
+        super.onDetach();
+
+        mCallbacks = null;
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -244,6 +268,7 @@ public class CrimeFragment extends Fragment {
 
                 date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
                 mCrime.setDate(date);
+                updateCrime();
                 updateDate(1);
                 break;
 
@@ -288,6 +313,7 @@ public class CrimeFragment extends Fragment {
                     c.moveToFirst();
                     String suspect = c.getString(0);
                     mCrime.setSuspect(suspect);
+                    updateCrime();
                     mSuspectButton.setText(suspect);
 
                 } finally {
@@ -295,11 +321,18 @@ public class CrimeFragment extends Fragment {
                 }
 
             case REQUEST_PHOTO:
+                updateCrime();
                 updatePhotoView();
                 break;
 
         }
 
+    }
+
+    private void updateCrime(){
+
+        CrimeLab.getInstance(getActivity()).updateCrime(mCrime);
+        mCallbacks.onCrimeUpdated(mCrime);
     }
 
     private void updateDate(int updateOption) {
