@@ -1,6 +1,7 @@
 package com.alvinsvitzer.blamegame;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,22 @@ public class CrimeListFragment extends Fragment {
     private int crimeTracker = -1;
     private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+    private Callbacks mCallbacks;
+
+    public interface Callbacks{
+        void onCrimeSelected(Crime crime);
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        if(context instanceof Activity){
+
+            mCallbacks = (Callbacks) context;
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,8 +101,8 @@ public class CrimeListFragment extends Fragment {
               CrimeLab.getInstance(getActivity())
                       .addCrime(c);
 
-              Intent intent = CrimePagerActivity.newIntent(getActivity(), c.getId());
-              startActivity(intent);
+              updateUI();
+              mCallbacks.onCrimeSelected(c);
               return true;
 
           case R.id.menu_item_show_subtitle:
@@ -109,6 +126,12 @@ public class CrimeListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mCallbacks = null;
     }
 
     private void updateUI() {
@@ -192,8 +215,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
-            startActivity(intent);
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 
