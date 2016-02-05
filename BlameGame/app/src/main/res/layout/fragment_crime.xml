@@ -65,8 +65,6 @@
             android:id="@+id/solved_check_box"
             android:text="@string/solved_checkbox_label"/>
 
-
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
