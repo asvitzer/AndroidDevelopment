@@ -65,6 +65,8 @@ public class CrimeFragment extends Fragment {
 
     private Callbacks mCallbacks;
 
+    private boolean canTakePhoto = false;
+
 
     public interface Callbacks{
         void onCrimeUpdated(Crime crime);
@@ -125,7 +127,7 @@ public class CrimeFragment extends Fragment {
         });
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        mSuspectButton = (Button) v.findViewById(R.id.crime_report);
+        mSuspectButton = (Button) v.findViewById(R.id.crime_suspect);
         mSuspectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +202,10 @@ public class CrimeFragment extends Fragment {
 
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        boolean canTakePhoto = mPhotoFile != null && captureImage.resolveActivity(packageManager) != null;
+        if (mPhotoFile != null && captureImage.resolveActivity(getActivity().getPackageManager()) != null){
+            canTakePhoto = true;
+        }
+
         mPhotoButton.setEnabled(canTakePhoto);
 
         if (canTakePhoto){
@@ -288,6 +293,7 @@ public class CrimeFragment extends Fragment {
 
                 date = cal.getTime();
                 mCrime.setDate(date);
+                updateCrime();
                 updateDate(2);
                 break;
 
