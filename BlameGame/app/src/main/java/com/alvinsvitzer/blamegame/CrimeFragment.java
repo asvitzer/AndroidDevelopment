@@ -259,7 +259,7 @@ public class CrimeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(TAG, "ResultCode " + resultCode + "RequestCode " + requestCode);
+        Log.d(TAG, "ResultCode " + resultCode + " RequestCode " + requestCode);
 
         if (resultCode != Activity.RESULT_OK){
             return;
@@ -273,6 +273,7 @@ public class CrimeFragment extends Fragment {
 
                 date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
                 mCrime.setDate(date);
+                Log.d(TAG, "Date " + date.toString());
                 updateCrime();
                 updateDate(1);
                 break;
