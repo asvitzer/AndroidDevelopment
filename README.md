@@ -1,6 +1,6 @@
 # AndroidDevelopment
 
-Collection of Android apps developed to learn the Android SDK.
+Collection of Android apps developed to learn the Android SDK through Treehouse & Big Nerd Ranch.
 
 ## Installation
 
@@ -16,6 +16,7 @@ Collection of Android apps developed to learn the Android SDK.
 5. GolfCard: 	      Keeps track of scores for golfing on an 18-hole course.
 6. SilentCircle:	  Messaging app to send messages which are then deleted from Parse backend
 7. WeatherVane:     Weather app that plugs into Forecast.IO for daily & 7-day conditions
+8. CriminalIntent:  App to record office crimes
 
 ## Contributing
 
