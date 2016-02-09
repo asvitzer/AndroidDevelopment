@@ -32,7 +32,6 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private TextView mEmptyView;
     private CrimeAdapter mAdapter;
-    private int crimeTracker = -1;
     private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private Callbacks mCallbacks;
@@ -148,6 +147,7 @@ public class CrimeListFragment extends Fragment {
         else {
             mCrimeRecyclerView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
+
         }
 
 
@@ -195,7 +195,6 @@ public class CrimeListFragment extends Fragment {
         private TextView mDateTextView;
         private CheckBox mSolvedCheckBox;
 
-
         public CrimeHolder(View itemView){
             super(itemView);
             itemView.setOnClickListener(this);
@@ -210,7 +209,6 @@ public class CrimeListFragment extends Fragment {
             mCrime = crime;
 
             mTitleTextView.setText(mCrime.getTitle());
-            //mDateTextView.setText(mCrime.getDate().toString());
 
             Date dt = mCrime.getDate();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm aa");
@@ -218,6 +216,7 @@ public class CrimeListFragment extends Fragment {
             mDateTextView.setText(formattedDateTime);
 
             mSolvedCheckBox.setChecked(mCrime.isSolved());
+            mSolvedCheckBox.setClickable(false);
         }
 
         @Override
@@ -225,6 +224,8 @@ public class CrimeListFragment extends Fragment {
 
             mCallbacks.onCrimeSelected(mCrime);
         }
+
+
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{

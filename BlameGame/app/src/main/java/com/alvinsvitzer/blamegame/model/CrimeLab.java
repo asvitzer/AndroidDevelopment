@@ -74,6 +74,11 @@ public class CrimeLab {
 
     public void removeCrime(Crime c){
 
+        String uuidString = c.getId().toString();
+
+        mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + " = ?", new String[] {uuidString});
+
+
     }
 
     public Crime getCrime(UUID id){

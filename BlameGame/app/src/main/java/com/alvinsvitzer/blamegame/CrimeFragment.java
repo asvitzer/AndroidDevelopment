@@ -49,8 +49,8 @@ public class CrimeFragment extends Fragment {
     private static final String DIALOG_TIME = "DialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
-    private static final int REQUEST_CONTACT = 3;
-    private static final int REQUEST_PHOTO = 4;
+    private static final int REQUEST_CONTACT = 2;
+    private static final int REQUEST_PHOTO = 3;
 
     private Crime mCrime;
     private EditText mCrimeTitle;
@@ -70,6 +70,7 @@ public class CrimeFragment extends Fragment {
 
     public interface Callbacks{
         void onCrimeUpdated(Crime crime);
+        void onCrimeDelete(Crime crime);
     }
 
     public static CrimeFragment newInstance(UUID crimeId){
@@ -233,8 +234,7 @@ public class CrimeFragment extends Fragment {
         switch(item.getItemId()) {
 
             case R.id.menu_item_delete_crime:
-                CrimeLab.getInstance(getActivity()).removeCrime(mCrime);
-                getActivity().finish();
+                removeCrime();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -340,6 +340,12 @@ public class CrimeFragment extends Fragment {
 
         CrimeLab.getInstance(getActivity()).updateCrime(mCrime);
         mCallbacks.onCrimeUpdated(mCrime);
+    }
+
+    private void removeCrime(){
+
+        CrimeLab.getInstance(getActivity()).removeCrime(mCrime);
+        mCallbacks.onCrimeDelete(mCrime);
     }
 
     private void updateDate(int updateOption) {

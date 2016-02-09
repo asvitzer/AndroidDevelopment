@@ -49,23 +49,9 @@ public class CrimePagerActivity extends AppCompatActivity implements CrimeFragme
             }
         });
 
-        //updateCrime();
 
     }
 
-    private void updateCrime() {
-
-        UUID crimeId = (UUID) getIntent()
-                .getSerializableExtra(EXTRA_CRIME_ID);
-
-        for (int i = 0; i < mCrimes.size(); i++){
-            if (mCrimes.get(i).getId().equals(crimeId)){
-                mViewPager.setCurrentItem(i);
-                break;
-            }
-        }
-
-    }
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
@@ -76,5 +62,10 @@ public class CrimePagerActivity extends AppCompatActivity implements CrimeFragme
     @Override
     public void onCrimeUpdated(Crime crime) {
 
+    }
+
+    @Override
+    public void onCrimeDelete(Crime crime) {
+        this.finish();
     }
 }

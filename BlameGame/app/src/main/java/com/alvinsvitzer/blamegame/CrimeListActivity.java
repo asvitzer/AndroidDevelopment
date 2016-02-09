@@ -2,8 +2,12 @@ package com.alvinsvitzer.blamegame;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.alvinsvitzer.blamegame.model.Crime;
+import com.alvinsvitzer.blamegame.model.CrimeLab;
+
+import java.util.List;
 
 /**
  * Created by Alvin on 1/1/16.
@@ -21,7 +25,10 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
 
     @Override
     public void onCrimeSelected(Crime crime){
-        if (findViewById(R.id.detail_fragment_container) == null){
+
+        int detailView = R.id.detail_fragment_container;
+
+        if (findViewById(detailView) == null){
             Intent intent = CrimePagerActivity.newIntent(this, crime.getId());
             startActivity(intent);
         }
@@ -29,8 +36,10 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
             Fragment newDetail = CrimeFragment.newInstance(crime.getId());
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_fragment_container, newDetail)
+                    .replace(detailView, newDetail)
                     .commit();
+
+            findViewById(detailView).setVisibility(View.VISIBLE);
         }
     }
 
@@ -39,5 +48,13 @@ public class CrimeListActivity extends SingleFragmentActivity implements CrimeLi
         CrimeListFragment listFragment = (CrimeListFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
         listFragment.updateUI();
+    }
+
+    @Override
+    public void onCrimeDelete(Crime crime) {
+
+        findViewById(R.id.detail_fragment_container).setVisibility(View.INVISIBLE);
+        onCrimeUpdated(crime);
+
     }
 }
