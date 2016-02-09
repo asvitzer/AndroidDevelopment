@@ -58,7 +58,7 @@ public class TimePickerFragment extends android.support.v4.app.DialogFragment
         mTimePicker = (TimePicker) v.findViewById(R.id.dialog_time_picker);
         
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute, true);
+        return new TimePickerDialog(getActivity(), this, hour, minute, false);
 
     }
 
