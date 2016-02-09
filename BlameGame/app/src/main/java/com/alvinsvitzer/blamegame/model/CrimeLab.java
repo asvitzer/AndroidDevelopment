@@ -66,7 +66,7 @@ public class CrimeLab {
 
     public void addCrime(Crime c){
 
-        ContentValues values = CrimeLab.getContentValues(c);
+        ContentValues values = getContentValues(c);
 
         mDatabase.insert(CrimeTable.NAME, null, values);
 
@@ -109,7 +109,7 @@ public class CrimeLab {
         ContentValues values = new ContentValues();
         values.put(CrimeTable.Cols.UUID, crime.getId().toString());
         values.put(CrimeTable.Cols.TITLE, crime.getTitle());
-        values.put(CrimeTable.Cols.DATE, crime.getDate().toString());
+        values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
         values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
 
