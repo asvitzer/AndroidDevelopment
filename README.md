@@ -9,14 +9,14 @@ Collection of Android apps developed to learn the Android SDK through Treehouse 
 
 ## Projects
 
-1. AdventureTime:	  Choose your own adventure story app
+1. FunFacts:        Fact repository	
 2. Crystal Ball:	  Fortune-telling app
-3. FunFacts:        Fact repository	
-4. GeoQuiz:         True/False Trivia app
+3. AdventureTime:	  Choose your own adventure story app
+4. WeatherVane:     Weather app that plugs into Forecast.IO for daily & 7-day conditions
 5. GolfCard: 	      Keeps track of scores for golfing on an 18-hole course.
-6. SilentCircle:	  Messaging app to send messages which are then deleted from Parse backend
-7. WeatherVane:     Weather app that plugs into Forecast.IO for daily & 7-day conditions
-8. CriminalIntent:  App to record office crimes
+6. GeoQuiz:         True/False Trivia app
+7. BlameGame:       App to record office crimes
+8. BeatBox:	        Instrument App to play different types of sounds
 
 ## Contributing
 
