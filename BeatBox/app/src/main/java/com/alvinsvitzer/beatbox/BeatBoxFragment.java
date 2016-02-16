@@ -26,6 +26,7 @@ public class BeatBoxFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
 
         mBeatBox = new BeatBox(getActivity());
     }
@@ -43,7 +44,7 @@ public class BeatBoxFragment extends Fragment {
     }
 
 
-    private class SoundHolder extends RecyclerView.ViewHolder {
+    private class SoundHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Button mSoundButton;
         private Sound mSound;
@@ -59,6 +60,10 @@ public class BeatBoxFragment extends Fragment {
         public void bindSound(Sound sound){
             mSound = sound;
             mSoundButton.setText(mSound.getName());
+        }
+
+        public void onClick(View v){
+            mBeatBox.play(mSound);
         }
 
     }
@@ -88,5 +93,9 @@ public class BeatBoxFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mBeatBox.release();
+    }
 }
