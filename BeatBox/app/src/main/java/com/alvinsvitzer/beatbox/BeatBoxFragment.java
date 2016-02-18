@@ -24,7 +24,7 @@ public class BeatBoxFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
@@ -55,6 +55,7 @@ public class BeatBoxFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_sound, container, false));
 
             mSoundButton = (Button) itemView.findViewById(R.id.list_item_sound_button);
+            mSoundButton.setOnClickListener(this);
         }
 
         public void bindSound(Sound sound){
@@ -63,6 +64,7 @@ public class BeatBoxFragment extends Fragment {
         }
 
         public void onClick(View v){
+
             mBeatBox.play(mSound);
         }
 

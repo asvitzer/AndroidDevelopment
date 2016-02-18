@@ -49,6 +49,7 @@ public class BeatBox {
                 String assetPath = SOUNDS_FOLDER + "/" + filename;
                 Sound sound = new Sound(assetPath);
                 load(sound);
+                Log.v(TAG, "Loaded sound: " + filename + " at path " + assetPath);
                 mSounds.add(sound);
             } catch (IOException ioe) {
                 Log.e(TAG, "Could not load sound " + filename, ioe);
@@ -67,14 +68,16 @@ public class BeatBox {
 
         Integer soundId = sound.getSoundId();
         if (sound == null){
+            Log.e(TAG, "Could not play sound " + soundId);
             return;
         }
 
+        Log.d(TAG, "Playing sound: " + soundId);
         mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 
     public void release(){
-        mSoundPool.release();;
+        mSoundPool.release();
     }
 
     public List<Sound> getSounds() {
