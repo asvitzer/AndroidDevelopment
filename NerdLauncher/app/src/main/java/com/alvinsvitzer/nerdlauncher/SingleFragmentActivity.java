@@ -1,4 +1,4 @@
-package com.alvinsvitzer.beatbox;
+package com.alvinsvitzer.nerdlauncher;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
