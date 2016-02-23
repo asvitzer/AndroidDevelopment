@@ -16,7 +16,7 @@ Collection of Android apps developed to learn the Android SDK through Treehouse 
 5. GolfCard: 	      Keeps track of scores for golfing on an 18-hole course.
 6. GeoQuiz:         True/False Trivia app
 7. BlameGame:       App to record office crimes
-8. BeatBox:	        Instrument App to play different types of sounds
+8. BeatBox:	        Sound EFX app to play various sounds loaded into assets folder
 
 ## Contributing
 
