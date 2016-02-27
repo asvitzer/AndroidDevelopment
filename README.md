@@ -18,7 +18,7 @@ Collection of Android apps developed to learn the Android SDK through Treehouse 
 7. BlameGame:       App to record office crimes
 8. BeatBox:	        Sound EFX app to play various sounds loaded into assets folder
 9. NerdLauncher:    Launcher app that displays list of apps on device
-10. PhotoGallery:   Client app for Flickr to display recently uploaded photos under the Creative Commons license
+10. Sunset:         App for shwoing property animations
 
 ## Contributing
 
