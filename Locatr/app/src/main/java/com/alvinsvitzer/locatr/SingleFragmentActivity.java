@@ -1,4 +1,4 @@
-package com.alvinsvitzer.photogallery;
+package com.alvinsvitzer.locatr;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
