@@ -19,7 +19,7 @@ public class PictureUtils {
 
     }
 
-    public static Bitmap getScaledBitmap(String path, int destWidth, int destHeigh){
+    public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight){
 
         // Read in the dimensons of the image on desk
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -32,11 +32,12 @@ public class PictureUtils {
         //Find scaling needed
         int inSampleSize = 1;
 
-        if (srcWidth > srcHeight){
-            inSampleSize = Math.round(srcHeight/srcWidth);
-        }
-        else{
-            inSampleSize = Math.round(srcWidth/destWidth);
+        if (srcHeight > destHeight || srcWidth > destHeight) {
+            if (srcWidth > srcHeight) {
+                inSampleSize = Math.round(srcHeight / srcWidth);
+            } else {
+                inSampleSize = Math.round(srcWidth / destWidth);
+            }
         }
 
         options = new BitmapFactory.Options();
