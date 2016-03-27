@@ -29,12 +29,11 @@ public class CrimePagerActivity extends AppCompatActivity implements CrimeFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_pager);
 
-
-
         mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);
 
         mCrimes = CrimeLab.getInstance(this).getCrimes();
         FragmentManager fragMan = getSupportFragmentManager();
+
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragMan) {
             @Override
             public Fragment getItem(int position) {
