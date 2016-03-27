@@ -416,6 +416,7 @@ public class CrimeFragment extends Fragment {
         }
         else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            mPhotoView.setImageBitmap(bitmap);
         }
     }
 }
