@@ -21,7 +21,7 @@ public class PictureUtils {
 
     public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight){
 
-        // Read in the dimensons of the image on desk
+        // Read in the dimensions of the image on desk
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
